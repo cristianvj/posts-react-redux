@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Header from './components/Header'
+import ListaPosts from './components/ListaPosts'
+import NuevoPost from './components/NuevoPost'
+import Post from './components/Post'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Header/>
+      <div className="container">
+        <Switch>
+          <Route exact path="/" component={ListaPosts} />
+          <Route exact path="/post/nuevo" component={NuevoPost} />
+          <Route exact path="/post/:id" component={Post} />
+        </Switch>
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App
+
