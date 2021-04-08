@@ -1,18 +1,19 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 function Header() {
   return (
     <header>
-      <nav class="navbar">
+      <nav className="navbar">
         <div>
-          <h1>VC Posts</h1>
+          <h1><Link to={'/'} className='h1'>VC Posts</Link></h1>
         </div>
-        <div class="nav-menu">
+        <div className="nav-menu">
           <div>
-            <button class="btn-new-post">Publicar Post</button>
+            <Link className="btn-new-post" to={'/post/nuevo'}>Publicar Post</Link>
           </div>
-          <div class="dropdown">
-            <i class="fas fa-user-tie dropbtn"></i>
+          <div className="dropdown">
+            <i className="fas fa-user-tie dropbtn"></i>
             <ul className="dropdown-content">
               <li>Mi perfil</li>
               <li>Mensajes</li>

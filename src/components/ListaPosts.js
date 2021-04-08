@@ -1,10 +1,17 @@
 import React from 'react'
+import Post from './Post'
 
 function ListaPosts() {
   return (
-    <div>
-      Posts
-    </div>
+    <>
+      <Post/>
+      <Post/>
+      <Post/>
+      <Post/>
+      <Post/>
+      <Post/>
+      <Post/>
+    </>
   )
 }
 

@@ -1,10 +1,10 @@
 :root{
   --clr-primary: #291e59;
   --clr-primary-dark: #140e2c;
-  --clr-primary-light: #806de0;
-  --clr-secondary: #ec3f09;
-  --clr-secondary-dark: #862305;
-  --clr-secondary-light: #e25f37;
+  --clr-primary-light: #665b9e;
+  --clr-secondary: #e25f37;
+  --clr-secondary-dark: #bd502f;
+  --clr-secondary-light: #f18767;
   --clr-gray: #504f4f;
   --clr-gray-dark: #292827;
   --clr-gray-light: #d8d8d8;
@@ -55,9 +55,10 @@ header{
   }
 }
 
-.navbar h1{
+.navbar .h1{
   font-family: 'Pacifico';
   font-size: 2rem;
+  text-decoration: none;
   text-shadow: 1px 1px 2px black, 0 0 25px var(--clr-primary-light), 0 0 5px var(--clr-primary-dark);
 }
 .nav-menu{
@@ -72,6 +73,7 @@ header{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin-right: 15px;
   padding: 10px;
+  text-decoration: none;
 }
 .btn-new-post:hover{
   background-color: var(--clr-secondary-dark);
@@ -101,7 +103,7 @@ header{
 }
 .dropdown-content li:hover 
 {
-  background-color: var(--clr-primary-dark);
+  background-color: var(--clr-primary);
   color: var(--clr-gray-light);
 }
 .dropdown:hover .dropdown-content {
@@ -126,17 +128,17 @@ header{
   max-width: 250px;
 }
 .card-header{
-  background-color: var(--clr-secondary);
+  background-color: var(--clr-primary);
   border-radius: 10px 10px 0px 0px;
   color: var(--clr-gray-light);
   padding: 15px;
   text-align: center;
 }
 .card-header h2{
-  font-family: 'Pacifico';
   font-size: 2rem;
-  text-shadow: 1px 1px 2px black, 0 0 25px var(--clr-secondary-light), 0 0 5px var(--clr-secondary-dark);
-
+  font-weight: normal;
+  color: var(--clr-gray-light);
+  text-shadow: 1px 1px 2px var(--clr-gray-dark), 0 0 25px var(--clr-primary-light), 0 0 5px var(--clr-primary-dark);
 }
 .card-header p {
   font-size: 0.8rem;
@@ -163,7 +165,7 @@ header{
   text-align: right;
 }
 .card-footer{
-  background-color: var(--clr-primary);
+  background-color: var(--clr-primary-light);
   border-radius: 0px 0px 10px 10px;
   padding-bottom: 15px;
 }
@@ -176,7 +178,7 @@ header{
   background-color: var(--clr-secondary);
   border: none;
   border-radius: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 var(--clr-gray-dark), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   color: var(--clr-gray-light);
   font-size: 1rem;
   margin-top: 15px;
@@ -200,14 +202,14 @@ header{
   text-align: center;
 }
 .summary-button i:hover{
-  color: var(--clr-primary-light);
+  color: var(--clr-secondary);
 }
 .summary-button p{
   margin: 7px 0;
   font-family: 'Pacifico';
   font-size: 1.5rem;
   text-align: center;
-  text-shadow: 1px 1px 2px black, 0 0 25px var(--clr-primary-light), 0 0 5px var(--clr-primary-dark);
+  text-shadow: 1px 1px 2px var(--clr-gray-dark), 0 0 25px var(--clr-primary-light), 0 0 5px var(--clr-primary-dark);
 }
 .hr-card{
   text-align: center;
@@ -244,8 +246,9 @@ header{
   margin-bottom: 15px;
 }
 .comment{
-  background-color: var(--clr-primary-light);
+  background-color: var(--clr-primary);
   border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
   color: var(--clr-gray-light);
   padding: 15px;
   margin-bottom: 15px;
