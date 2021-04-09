@@ -48,7 +48,7 @@ function FormComentario({id}) {
   return (
     <>
       <div className="form-comment">
-        <h3>Nuevo Comentario {id}</h3>
+        <h3>Nuevo Comentario</h3>
         <form action="">
           <input 
             className="input-comment" 

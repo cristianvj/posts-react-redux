@@ -1,4 +1,6 @@
 import React, {useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {agregarLikeAction} from '../actions/postActions'
 import { Link } from 'react-router-dom'
 import FormComentario from './FormComentario'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
@@ -8,9 +10,26 @@ function Post({post}) {
 
   const [formComentar, setFormComentar] = useState(false)
 
+  const dispatch = useDispatch()
+  const agregarLike = nuevoPost => dispatch(agregarLikeAction(nuevoPost))
+
+  const posts = useSelector(state => state.posts.posts)
+
 
   const handleFormComentar = () => {
     formComentar ? setFormComentar(false) : setFormComentar (true)
+  }
+
+  const handleLike = (action) => {
+    const addLikePosts = posts.map(p =>
+      p.id === post.id ? 
+      action === 'like'?
+        {...p, likes: p.likes + 1}
+      : {...p, dislikes: p.dislikes + 1}
+      : p
+    )
+    const nuevoPost = addLikePosts.filter(p => p.id === post.id.toString())
+    agregarLike(nuevoPost[0])
   }
 
   return (
@@ -28,11 +47,17 @@ function Post({post}) {
             <div className="summary-buttons">
               <div className="summary-button">
                 <p>{post.likes}</p>
-                <i className="fas fa-thumbs-up"></i>
+                <i 
+                  className="fas fa-thumbs-up" 
+                  onClick={()=>handleLike('like')}
+                ></i>
               </div>
               <div className="summary-button">
                 <p>{post.dislikes}</p>
-                <i className="fas fa-thumbs-down"></i>
+                <i 
+                  className="fas fa-thumbs-down" 
+                  onClick={()=>handleLike('dislike')}
+                ></i>
               </div>
               <div className="summary-button">
                 <p>{post.comments.length}</p>

@@ -104,3 +104,18 @@ const agregarComentario = nuevoPost =>({
   type: AGREGAR_COMENTARIO,
   payload: nuevoPost
 })
+
+export function agregarLikeAction(nuevoPost){
+  return async(dispatch) => {
+    try {
+      await clienteAxios.put(`/posts/${nuevoPost.id}`, nuevoPost)
+      dispatch(agregarComentario(nuevoPost))
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Hubo un error',
+        text: 'Hubo un error con la conexion a la API, intenta de nuevo'
+      })
+    }
+  }
+}

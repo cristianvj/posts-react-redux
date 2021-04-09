@@ -1,7 +1,8 @@
 import React from 'react'
 import FormComentario from './FormComentario'
 import { useParams } from 'react-router-dom';
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
+import {agregarLikeAction} from '../actions/postActions'
 import Comentario from './Comentario'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import {es} from 'date-fns/locale'
@@ -12,6 +13,21 @@ function DetallePost({history}) {
   
   const posts = useSelector(state => state.posts.posts)
   const loading = useSelector(state => state.posts.loading)
+
+  const dispatch = useDispatch()
+  const agregarLike = nuevoPost => dispatch(agregarLikeAction(nuevoPost))
+
+  const handleLike = (action) => {
+    const addLikePosts = posts.map(p =>
+      p.id === post.id ? 
+      action === 'like'?
+        {...p, likes: p.likes + 1}
+      : {...p, dislikes: p.dislikes + 1}
+      : p
+    )
+    const nuevoPost = addLikePosts.filter(p => p.id === post.id.toString())
+    agregarLike(nuevoPost[0])
+  }
 
   const post = posts[Number(id)-1]
 
@@ -36,11 +52,17 @@ function DetallePost({history}) {
             <div className="summary-buttons">
               <div className="summary-button">
                 <p>{post.likes}</p>
-                <i className="fas fa-thumbs-up"></i>
+                <i 
+                  className="fas fa-thumbs-up" 
+                  onClick={()=>handleLike('like')}
+                ></i>
               </div>
               <div className="summary-button">
                 <p>{post.dislikes}</p>
-                <i className="fas fa-thumbs-down"></i>
+                <i 
+                  className="fas fa-thumbs-down" 
+                  onClick={()=>handleLike('dislike')}
+                ></i>
               </div>
               <div className="summary-button">
                 <p>{
@@ -64,9 +86,9 @@ function DetallePost({history}) {
             <>
               <h3>Comentarios</h3>
               {
-                post.comments.map(comment => (
+                post.comments.map((comment, id) => (
                   <Comentario 
-                    key={comment.id} 
+                    key={id} 
                     comentario={comment}
                   />
                 )).reverse()
