@@ -82,13 +82,20 @@ const descargarPostsError = () => ({
 
 export function agregarComentarioAction(nuevoPost){
   return async(dispatch) => {
-    console.log(nuevoPost)
-    dispatch(agregarComentario(nuevoPost))
     try {
-      const resultado = await clienteAxios.put(`/posts/${nuevoPost.id}`, nuevoPost)
-      console.log(resultado)
+      await clienteAxios.put(`/posts/${nuevoPost.id}`, nuevoPost)
+      dispatch(agregarComentario(nuevoPost))
+      await Swal.fire(
+        'Correcto',
+        'El comentario se agregó correctamente',
+        'success',
+      )
     } catch (error) {
-      
+      Swal.fire({
+        icon: 'error',
+        title: 'Hubo un error',
+        text: 'Hubo un error con la conexion a la API, intenta de nuevo'
+      })
     }
   }
 }
