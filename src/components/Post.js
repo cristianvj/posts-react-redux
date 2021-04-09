@@ -1,40 +1,43 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import FormComentario from './FormComentario'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import {es} from 'date-fns/locale'
 
-function Post() {
+function Post({post}) {
 
   const [formComentar, setFormComentar] = useState(false)
+
 
   const handleFormComentar = () => {
     formComentar ? setFormComentar(false) : setFormComentar (true)
   }
 
   return (
-      <div class="card">
-        <div class="card-header">
-          <h2 class="title-post">Titulo Del Post</h2>
-          <p class="date-post">2 days ago</p>
+    <div className="card">
+        <div className="card-header">
+          <h2 className="title-post">{post.title}</h2>
+          <p className="date-post">{`Publicado hace: ${formatDistanceToNow(new Date(post.createdAt), {locale: es})}`}</p>
         </div>
-        <div class="card-body">
-          <p class="content-post">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe molestias alias omnis sunt, ullam cupiditate enim animi voluptates iure accusantium? Perferendis eos ea quisquam quasi aperiam eveniet modi sit veniam?... <Link class="link-ver-mas" to={"/post/1"}>Ver mas</Link></p>
-          <p class="email-post">correoautor@gmail.com</p>
+        <div className="card-body">
+          <p className="content-post">{`${post.content.slice(0,199)}...`} <Link className="link-ver-mas" to={`/post/${post.id}`} >Ver mas</Link></p>
+          <p className="email-post">{post.email}</p>
         </div>
-        <div class="card-footer">
-          <div class="btns-footer">
-            <div class="summary-buttons">
-              <div class="summary-button">
-                <p>15</p>
-                <i class="fas fa-thumbs-up"></i>
+        <div className="card-footer">
+          <div className="btns-footer">
+            <div className="summary-buttons">
+              <div className="summary-button">
+                <p>{post.likes}</p>
+                <i className="fas fa-thumbs-up"></i>
               </div>
-              <div class="summary-button">
-                <p>8</p>
-                <i class="fas fa-thumbs-down"></i>
+              <div className="summary-button">
+                <p>{post.dislikes}</p>
+                <i className="fas fa-thumbs-down"></i>
               </div>
-              <div class="summary-button">
-                <p>20</p>
+              <div className="summary-button">
+                <p>{post.comments.length}</p>
                 <i 
-                  class="fas fa-comments"
+                  className="fas fa-comments"
                   onClick={handleFormComentar}
                 ></i>
               </div>
@@ -43,7 +46,7 @@ function Post() {
           {
             formComentar ? 
               <>
-                <hr class="hr-card" />
+                <hr className="hr-card" />
                 <FormComentario/>
               </>
             : null

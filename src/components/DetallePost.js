@@ -1,59 +1,82 @@
 import React from 'react'
 import FormComentario from './FormComentario'
+import { useParams } from 'react-router-dom';
+import {useSelector} from 'react-redux'
+import Comentario from './Comentario'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import {es} from 'date-fns/locale'
 
 function DetallePost() {
+
+  let { id } = useParams();
+  
+  const posts = useSelector(state => state.posts.posts)
+  const loading = useSelector(state => state.posts.loading)
+
+  const post = posts[Number(id)-1]
+
   return (
     <>
+    {
+      loading ? <p>Cargando...</p> :
+      <>
       <div className="card card-form-post">
         <div className="card-header">
-          <h2 className="title-post">Titulo del Post</h2>
-          <p className="date-post">Hace 2 semanas</p>
+          <h2 className="title-post">{post.title}</h2>
+          <p className="date-post">{`Publicado hace: ${formatDistanceToNow(new Date(post.createdAt), {locale: es})}`}</p>
         </div>
         <div className="card-body">
-          <p className="content-post">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas at sequi corporis eum accusamus voluptatibus, aliquam obcaecati neque consectetur atque doloribus officiis qui unde velit optio consequuntur! Voluptas, obcaecati alias? Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          <br/>
-          <br/>
-          Accusamus quam, laudantium eligendi magni a eveniet possimus inventore libero architecto rem, iusto quae reprehenderit fugiat repellat. Commodi provident eos quidem molestias.</p>
-          <p className="email-post">correoautor@gmail.com</p>
+          <p className="content-post">{post.content}</p>
+          <p className="email-post">{post.email}</p>
         </div>
         <div className="card-footer">
           <br/>
           <div className="btns-footer">
             <div className="summary-buttons">
               <div className="summary-button">
-                <p>15</p>
+                <p>{post.likes}</p>
                 <i className="fas fa-thumbs-up"></i>
               </div>
               <div className="summary-button">
-                <p>8</p>
+                <p>{post.dislikes}</p>
                 <i className="fas fa-thumbs-down"></i>
               </div>
               <div className="summary-button">
-                <p>20</p>
+                <p>{
+                post.comments.length
+              }</p>
                 <i className="fas fa-comments"></i>
               </div>
             </div>
           </div>
           <br/>
+          <hr className="hr-card" />
           <FormComentario/>
           <hr className="hr-card" />
           <div className="comments">
-            <h3>Comentarios</h3>
+          {
+            post.comments === 0 ? 
             <div className="comment">
-              <p className="email">email@comment.com</p>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus culpa magnam soluta ducimus</p>
+              <p>No hay comentarios</p>
             </div>
-            <div className="comment">
-              <p className="email">email@comment.com</p>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus culpa magnam soluta ducimus</p>
-            </div>
-            <div className="comment">
-              <p className="email">email@comment.com</p>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus culpa magnam soluta ducimus</p>
-            </div>
+            : 
+            <>
+              <h3>Comentarios</h3>
+              {
+                post.comments.map(comment => (
+                  <Comentario 
+                    key={comment.id} 
+                    comentario={comment}
+                  />
+                )).reverse()
+                            }
+            </>
+          }
           </div>
         </div>
       </div>
+      </>
+      }
     </>
   )
 }

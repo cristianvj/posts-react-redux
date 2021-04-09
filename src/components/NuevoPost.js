@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import { Link } from 'react-router-dom'
 import {crearNuevoPostAction} from '../actions/postActions'
 
 function NuevoPost({history}) {
@@ -29,9 +30,12 @@ function NuevoPost({history}) {
       email,
       likes: 0,
       dislikes: 0,
+      comments:[]
     })
-
-    history.push('/')
+    setTitulo('')
+    setContenido('')
+    setEmail('')
+    //history.push('/')
   }
 
   return (
@@ -68,7 +72,10 @@ function NuevoPost({history}) {
                 value={email}
                 onChange={e => setEmail(e.target.value)} 
               />
-              <button className="btn-new-comment"><i className="fas fa-comment-dots"></i> Publicar Post</button>
+              <div className='buttons-footer'>
+                <button className="btn-new-comment"><i class="fas fa-save"></i> Publicar</button>
+                <Link className="btn-regresar" to={'/'}><i class="fas fa-undo"></i> Regresar</Link>
+              </div>
               {
                 cargando ? <p>Cargando...</p> : null
               }

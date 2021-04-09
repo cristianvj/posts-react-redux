@@ -1,16 +1,34 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Post from './Post'
+import {useSelector, useDispatch} from 'react-redux'
+import {obtenerPostsAction} from '../actions/postActions'
 
 function ListaPosts() {
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    const cargarPosts = () => dispatch(obtenerPostsAction())
+    return cargarPosts()
+  }, [])
+  
+  const posts = useSelector(state => state.posts.posts)
+  const loading = useSelector(state => state.posts.loading)
+
+
   return (
     <>
-      <Post/>
-      <Post/>
-      <Post/>
-      <Post/>
-      <Post/>
-      <Post/>
-      <Post/>
+      {
+        loading ? <p>Cargando...</p> :
+        posts.length === 0 ? 'No hay posts' : (
+          posts.map(post => (
+            <Post 
+              key={post.id}
+              post={post}
+            />
+          )).reverse()
+        )
+      }
     </>
   )
 }
