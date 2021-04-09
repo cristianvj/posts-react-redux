@@ -18,11 +18,12 @@ export function crearNuevoPostAction(post){
     try {
       await clienteAxios.post('/posts', post)
       dispatch(agregarPostExito(post))
-      Swal.fire(
+      await Swal.fire(
         'Correcto',
         'El post se agregó correctamente',
         'success',
       )
+      window.location="/"
     } catch (error) {
       console.log(error);
       dispatch(agregarPostError(true))

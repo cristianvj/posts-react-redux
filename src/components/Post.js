@@ -47,7 +47,7 @@ function Post({post}) {
             formComentar ? 
               <>
                 <hr className="hr-card" />
-                <FormComentario/>
+                <FormComentario id={post.id}/>
               </>
             : null
           }

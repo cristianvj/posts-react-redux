@@ -10,7 +10,7 @@ function Header() {
         </div>
         <div className="nav-menu">
           <div>
-            <Link className="btn-new-post" to={'/post/nuevo'}><i class="fas fa-edit"></i> Nuevo Post</Link>
+            <Link className="btn-new-post" to={'/post/nuevo'}><i className="fas fa-edit"></i> Nuevo Post</Link>
           </div>
           <div className="dropdown">
             <i className="fas fa-user-tie dropbtn"></i>

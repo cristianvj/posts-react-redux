@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
 import {crearNuevoPostAction} from '../actions/postActions'
+import Swal from 'sweetalert2'
 
 function NuevoPost({history}) {
 
@@ -18,7 +19,11 @@ function NuevoPost({history}) {
   const submitNuevoPost = e => {
     e.preventDefault()
     if(titulo.trim() === '' || contenido === '' || email === ''){
-      return
+      return Swal.fire({
+        icon: 'error',
+        title: 'Todos los campos son obligatorios',
+        text: 'Hubo un error con la conexion a la API, intenta de nuevo'
+      })
     }
 
     var fecha = Date.now();
@@ -73,10 +78,11 @@ function NuevoPost({history}) {
                 onChange={e => setEmail(e.target.value)} 
               />
               <div className='buttons-footer'>
-                <button className="btn-new-comment"><i class="fas fa-save"></i> Publicar</button>
-                <Link className="btn-regresar" to={'/'}><i class="fas fa-undo"></i> Regresar</Link>
+                <button className="btn-new-comment"><i className="fas fa-save"></i> Publicar</button>
+                <Link className="btn-regresar" to={'/'}><i className="fas fa-undo"></i> Regresar</Link>
               </div>
               {
+                error ?  <p>Cargando...</p> :
                 cargando ? <p>Cargando...</p> : null
               }
             </form>

@@ -6,7 +6,7 @@ import Comentario from './Comentario'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import {es} from 'date-fns/locale'
 
-function DetallePost() {
+function DetallePost({history}) {
 
   let { id } = useParams();
   
@@ -17,7 +17,8 @@ function DetallePost() {
 
   return (
     <>
-    {
+    { 
+      post === undefined ? history.push('/') :
       loading ? <p>Cargando...</p> :
       <>
       <div className="card card-form-post">
@@ -51,7 +52,7 @@ function DetallePost() {
           </div>
           <br/>
           <hr className="hr-card" />
-          <FormComentario/>
+          <FormComentario id={post.id}/>
           <hr className="hr-card" />
           <div className="comments">
           {
@@ -69,7 +70,7 @@ function DetallePost() {
                     comentario={comment}
                   />
                 )).reverse()
-                            }
+              }
             </>
           }
           </div>
