@@ -4,7 +4,8 @@ import {
   AGREGAR_POST_ERROR,
   COMENZAR_DESCARGA_POSTS,
   COMENZAR_DESCARGA_POSTS_EXITO,
-  COMENZAR_DESCARGA_POSTS_ERROR
+  COMENZAR_DESCARGA_POSTS_ERROR,
+  AGREGAR_COMENTARIO
 } from '../types'
 import clienteAxios from '../config/axios'
 import Swal from 'sweetalert2'
@@ -76,4 +77,17 @@ const descargaPostsExitosa = posts => ({
 const descargarPostsError = () => ({
   type: COMENZAR_DESCARGA_POSTS_ERROR,
   payload: true
+})
+
+
+export function agregarComentarioAction(comentario){
+  return async(dispatch) => {
+    dispatch(agregarComentario(comentario))
+  }
+  
+}
+
+const agregarComentario = comentario =>({
+  type: AGREGAR_COMENTARIO,
+  payload: comentario
 })

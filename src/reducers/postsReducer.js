@@ -5,11 +5,11 @@ import {
   COMENZAR_DESCARGA_POSTS,
   COMENZAR_DESCARGA_POSTS_EXITO,
   COMENZAR_DESCARGA_POSTS_ERROR,
+  AGREGAR_COMENTARIO
 } from '../types'
 
 const initialState = {
   posts: [],
-  post: {},
   error: null,
   loading: false,
 }
@@ -42,6 +42,14 @@ export default function(state = initialState, action){
         loading: false,
         error: null,
         posts: action.payload
+      }
+    case AGREGAR_COMENTARIO:
+      console.log(action.payload)
+      return {
+        ...state,
+        posts: state.posts.map(post =>
+          post.id === action.payload.idPost ? {...post, comments: [...post.comments, action.payload]} : post
+        )
       }
     default:
       return state

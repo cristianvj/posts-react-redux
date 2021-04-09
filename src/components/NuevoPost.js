@@ -22,7 +22,7 @@ function NuevoPost({history}) {
       return Swal.fire({
         icon: 'error',
         title: 'Todos los campos son obligatorios',
-        text: 'Hubo un error con la conexion a la API, intenta de nuevo'
+        text: 'Debes diligenciar todos los campos del formulario'
       })
     }
 
