@@ -80,14 +80,20 @@ const descargarPostsError = () => ({
 })
 
 
-export function agregarComentarioAction(comentario){
+export function agregarComentarioAction(nuevoPost){
   return async(dispatch) => {
-    dispatch(agregarComentario(comentario))
+    console.log(nuevoPost)
+    dispatch(agregarComentario(nuevoPost))
+    try {
+      const resultado = await clienteAxios.put(`/posts/${nuevoPost.id}`, nuevoPost)
+      console.log(resultado)
+    } catch (error) {
+      
+    }
   }
-  
 }
 
-const agregarComentario = comentario =>({
+const agregarComentario = nuevoPost =>({
   type: AGREGAR_COMENTARIO,
-  payload: comentario
+  payload: nuevoPost
 })

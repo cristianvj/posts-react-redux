@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {agregarComentarioAction} from '../actions/postActions'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
@@ -8,7 +8,10 @@ import Swal from 'sweetalert2'
 function FormComentario({id}) {
   
   const dispatch = useDispatch()
-  const agregarComentario = comentario => dispatch(agregarComentarioAction(comentario))
+
+  const posts = useSelector(state => state.posts.posts)
+
+  const agregarComentario = nuevoPost => dispatch(agregarComentarioAction(nuevoPost))
   
   let location = useLocation()
 
@@ -26,12 +29,16 @@ function FormComentario({id}) {
         text: 'Debes diligenciar todos los campos del formulario'
       })
     }
-    agregarComentario({
-      idPost: id.toString(),
-      commentEmail: emailComentario,
-      commenttitle: nombreComentario,
-      commentContent: txtComentario
-    })
+    const addComentarioPosts = posts.map(post =>
+      post.id === id.toString() ? {...post, comments: [...post.comments, {
+        commentEmail: emailComentario,
+        commenttitle: nombreComentario,
+        commentContent: txtComentario
+      }]} : post
+    )
+    const nuevoPost = addComentarioPosts.filter(post => post.id === id.toString())
+
+    agregarComentario(nuevoPost[0])
 
     setNombreComentario('')
     setTxtComentario('')

@@ -44,11 +44,10 @@ export default function(state = initialState, action){
         posts: action.payload
       }
     case AGREGAR_COMENTARIO:
-      console.log(action.payload)
       return {
         ...state,
         posts: state.posts.map(post =>
-          post.id === action.payload.idPost ? {...post, comments: [...post.comments, action.payload]} : post
+          post.id === action.payload.id ? action.payload : post
         )
       }
     default:
