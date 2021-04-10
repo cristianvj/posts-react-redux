@@ -6,10 +6,11 @@ import {obtenerPostsAction} from '../actions/postActions'
 function ListaPosts() {
 
   const dispatch = useDispatch()
-
+  
   useEffect(()=>{
     const cargarPosts = () => dispatch(obtenerPostsAction())
     return cargarPosts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   const posts = useSelector(state => state.posts.posts)
