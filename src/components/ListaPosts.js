@@ -21,7 +21,7 @@ function ListaPosts() {
     <>
       {
         loading ? <p>Cargando...</p> :
-        posts.length === 0 ? 'No hay posts' : (
+        posts.length === 0 ? 'No hay posts, por favor agrega un primer post' : (
           posts.map(post => (
             <Post 
               key={post.id}
