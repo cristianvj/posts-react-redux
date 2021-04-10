@@ -91,7 +91,7 @@ function DetallePost({history}) {
                     key={id} 
                     comentario={comment}
                   />
-                )).reverse()
+                ))
               }
             </>
           }
